@@ -3,8 +3,6 @@ from flask_login import UserMixin #Gives user object flask login parameters
 from sqlalchemy.sql import func
 class Note(database.Model):
     id = database.Column(database.Integer, primary_key =True)
-    data = database.Column(database.String(10000))
-    date = database.Column(database.DateTime(timezone = True), default = func.now())
     user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
 

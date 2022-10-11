@@ -1,12 +1,15 @@
 #Contains login screen and authentication
 
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from sqlalchemy import Integer, func, select
+import sqlalchemy as database
 from .databases import User
 from werkzeug.security import generate_password_hash, check_password_hash #Password hashing to protect user data
 from . import database
 from flask_login import login_user, login_required, logout_user, current_user
-auth = Blueprint('auth', __name__)
 
+
+auth = Blueprint('auth', __name__)    
 @auth.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -39,7 +42,7 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         password_C = request.form.get('password_C')
-
+        
         user = User.query.filter_by(username = username).first()
         if user:
             flash('User already exists.', category = 'error')
@@ -49,12 +52,12 @@ def register():
             flash('Password must contain 8 characters', category = 'error')
         else:
             #add the user to the database (max of 10)
-            new_user = User(username = username, password = generate_password_hash(password, method = 'sha256'))
-            database.session.add(new_user)
-            database.session.commit()
-            flash('Account created successfully', category = 'success')
-           # login_user(user, remember = True) # Maybe change currently will remember user's login
-            return redirect(url_for('pages.home'))
+                new_user = User(username = username, password = generate_password_hash(password, method = 'sha256'))
+                database.session.add(new_user)
+                database.session.commit()
+                flash('Account created successfully', category = 'success')
+
+                return redirect(url_for('pages.home'))
 
 
     return render_template("register.html", user = current_user)
