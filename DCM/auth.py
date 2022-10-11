@@ -3,7 +3,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from sqlalchemy import Integer, func, select
 import sqlalchemy as database
-from .databases import User
+from .databases import User, countUsers
 from werkzeug.security import generate_password_hash, check_password_hash #Password hashing to protect user data
 from . import database
 from flask_login import login_user, login_required, logout_user, current_user
@@ -50,6 +50,8 @@ def register():
             flash('Passwords must match', category = 'error')
         elif len(password) < 7:
             flash('Password must contain 8 characters', category = 'error')
+        elif countUsers(database) == 10:
+            flash('Max number of users reached', category = 'error')
         else:
             #add the user to the database (max of 10)
                 new_user = User(username = username, password = generate_password_hash(password, method = 'sha256'))

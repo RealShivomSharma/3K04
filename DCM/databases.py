@@ -11,3 +11,6 @@ class User(database.Model, UserMixin):
     username = database.Column(database.String(150), unique=True) #Maximum length = 150, only unique usernames
     password = database.Column(database.String(150))
     notes = database.relationship('Note')
+
+def countUsers(database):
+    return database.session.query(User).count()
