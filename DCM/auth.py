@@ -1,6 +1,9 @@
 #Contains login screen and authentication
 
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .databases import User
+from werkzeug.security import generate_password_hash, check_password_hash #Password hashing to protect user data
+from . import database
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods = ['GET', 'POST'])
@@ -22,11 +25,15 @@ def register():
     
         if password != password_C:
             flash('Passwords must match', category = 'error')
-            pass
-        if len(password) < 7:
+        elif len(password) < 7:
             flash('Password must contain 8 characters', category = 'error')
         else:
             #add the user to the database (max of 10)
-            flash('Account created successfull', category = 'success')
-            pass
+            new_user = User(username = username, password = generate_password_hash(password, method = 'sha256'))
+            database.session.add(new_user)
+            database.session.commit()
+            flash('Account created successfully', category = 'success')
+            return redirect(url_for('pages.home'))
+
+
     return render_template("register.html")
