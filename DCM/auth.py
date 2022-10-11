@@ -1,16 +1,16 @@
 #Contains login screen and authentication
 
-from flask import Blueprint 
+from flask import Blueprint, render_template 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-    return "<p>Login</p>"
-
+    return render_template("login.html", text = "Testing")
+    
 @auth.route('/logout')
 def logout():
-    return "<p>logout<p>"
+    return render_template("home.html")
 
 @auth.route('/register')
 def register():
-    return "<p>register<p>"
+    return render_template("register.html")
