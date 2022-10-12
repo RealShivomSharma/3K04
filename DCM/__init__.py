@@ -6,6 +6,12 @@ database = SQLAlchemy()
 DB_NAME = "database.db"
 
 #Creates flask application
+"""
+Generates the flask app that runs the website containing all users and 
+functionality
+All databases are generated within this function
+It is responsible for the initial running sequence of the website
+"""
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'wskldihwsdsiou9812342918371298321k' #Secures session data
@@ -18,11 +24,15 @@ def create_app():
     app.register_blueprint(pages, url_prefix = '/')
     app.register_blueprint(auth, url_prefix = '/')
 
-    from .databases import User, Note
+    from .databases import User, Note #Import user class as well as Note
     
-    with app.app_context():
+    with app.app_context(): #Within app context, generate database will not overwrite existing
         database.create_all()
-    
+    """
+    Login manager using flask library to load users and manage their
+    credentials
+    Accomplished through querying with sqlite database.db file 
+    """
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app) 

@@ -51,7 +51,7 @@ def register():
         elif len(password) < 7:
             flash('Password must contain 8 characters', category = 'error')
         elif countUsers(database) == 10:
-            flash('Max number of users reached', category = 'error')
+            flash('Max number of users reached', category = 'error' )
         else:
             #add the user to the database (max of 10)
                 new_user = User(username = username, password = generate_password_hash(password, method = 'sha256'))

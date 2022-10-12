@@ -5,12 +5,18 @@ class Note(database.Model):
     id = database.Column(database.Integer, primary_key =True)
     user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 
+class Pacing(database.Model):
+    id = database.Column(database.Integer, primary_key = True)
+    user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
+    mode = database.Column(database.String(4), unique = True)
+    
 
 class User(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(150), unique=True) #Maximum length = 150, only unique usernames
     password = database.Column(database.String(150))
     notes = database.relationship('Note')
+    pacing = database.relationship('Pacing')
 
 def countUsers(database):
     return database.session.query(User).count()
