@@ -81,6 +81,19 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+      
+    <!--Only runs script if page is on home-->
+    {% if home == 'TRUE' %}
+    <script>
+      $(".dropdown-menu li a").click(function(){
+        
+        $(".btn:first-child").html($(this).text()+' <span class="caret"></span>');
+        
+      });
+      </script>
+    {%endif%}
+
+
     </body>
 
 </html>
