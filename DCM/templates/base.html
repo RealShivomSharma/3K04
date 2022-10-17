@@ -84,6 +84,13 @@
       
     <!--Only runs script if page is on home-->
     {% if home == 'TRUE' %}
+    <style>
+    ul.forms{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    </style>
     <script>
       $(".dropdown-menu li a").click(function(){
         
@@ -106,6 +113,12 @@
           });
         }).change();
       });</script>
+
+      <script>
+        $("select").on("change", function() {    
+    $("#" + $(this).val()).show().siblings().hide();
+});
+      </script> 
     
     {%endif%}
 

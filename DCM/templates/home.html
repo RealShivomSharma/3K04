@@ -3,8 +3,9 @@
 {% block title %}Changed{% endblock %}
 
 {% block content %}
+   
 <p class= "h1" align = "center" >DCM INTERFACE</p>   
-
+<!--
 <div class="dropdown">
   <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false" >
     Pacing Mode <span class="caret"></span>
@@ -15,9 +16,8 @@
     <li><a href="#" value = AAI>AAI</a></li>
     <li><a href="#" value = VVI>VVI</a></li>
   </ul>
-</div 
-<div>
-
+</div>
+-->
 
 <p class = "h4" label for="standard-select">PACING MODE</label></p>
 <div class="select">
@@ -29,9 +29,52 @@
   </select>
   <span class="focus"></span>
 </div>
-</div>
 
+<div>
+<form name="AOO" id="AOO" type = "pacingMode" style="display:none">
+  <ul class = "forms"> 
+    <li><input type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+    <li><input type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+    <li><input type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+    <li><input type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+  </ul>
+  </form>
+  
+  <form name="VOO" id="VOO" type = "pacingMode" style="display:none">
+  <ul class = "forms"> 
+    <li><input type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+    <li><input type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+    <li><input type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+    <li><input type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+    </ul>
+  </form>
+  
+  <form name="AAI" id="AAI" type = "pacingMode" style="display:none">
+  <ul class = "forms"> 
+    <li><input type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+    <li><input type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+    <li><input type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+    <li><input type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+    <li><input type="integer" placeholder="LOWER RATE LIMIT"></li>
+    <li><input type="integer" placeholder="UPPER RATE LIMIT"></li>
+    <li><input type="integer" placeholder="VRP"></li>
+    <li><input type="integer" placeholder="ARP"></li>
+  </ul>
+  </form>
 
+  <form name="VVI" id="VVI" type = "pacingMode" value = "VVI" style="display:none">
+    <ul class = "forms">
+      <li><input type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+      <li><input type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+      <li><input type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+      <li><input type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+      <li><input type="integer" placeholder="LOWER RATE LIMIT"></li>
+      <li><input type="integer" placeholder="UPPER RATE LIMIT"></li>
+      <li><input type="integer" placeholder="VRP"></li>
+      <li><input type="integer" placeholder="ARP"></li>
+    </ul>
+    </form>
+  </div>
 
 
 
