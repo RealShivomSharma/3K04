@@ -84,42 +84,34 @@
       
     <!--Only runs script if page is on home-->
     {% if home == 'TRUE' %}
+    
     <style>
     ul.forms{
-      list-style-type: none;
+      list-style-type:none;
       margin: 0;
       padding: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-family: helvetica;
+    }
+    .pacingMode{
+      display:none;
     }
     </style>
     <script>
-      $(".dropdown-menu li a").click(function(){
-        
-        $(".btn:first-child").html($(this).text()+' <span class="caret"></span>');
-        
+      $(document).ready(function(){
+        var $pacingModes = $(".pacingMode"), $selector = $('#pacingModes');
+        $pacingModes.first().show();
+        $selector.change(function() {
+          var selected = $(this).find('option:selected').attr('class');
+          $pacingModes.hide();
+          $('#' + selected + '.pacingMode').show();
+        });
       });
 
+    </script> 
       
-      </script>
-      <script>$(document).ready(function() {
-        $("select").change(function() {
-          $(this).find("option:selected").each(function() {
-            var optionValue = $(this).attr("value");
-            if (optionValue) {
-              $(".box").not("." + optionValue).hide();
-              $("." + optionValue).show();
-            } else {
-              $(".box").hide();
-            }
-          });
-        }).change();
-      });</script>
 
-      <script>
-        $("select").on("change", function() {    
-    $("#" + $(this).val()).show().siblings().hide();
-});
-      </script> 
-    
     {%endif%}
 
 

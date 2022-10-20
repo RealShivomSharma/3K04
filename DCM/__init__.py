@@ -24,7 +24,7 @@ def create_app():
     app.register_blueprint(pages, url_prefix = '/')
     app.register_blueprint(auth, url_prefix = '/')
 
-    from .databases import User, Note, Pacing #Import user class as well as Pacing data
+    from .databases import User, Pacing #Import user class as well as Pacing data
     
     with app.app_context(): #Within app context, generate database will not overwrite existing
         database.create_all()
