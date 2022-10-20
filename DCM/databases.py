@@ -3,11 +3,8 @@ from flask_login import UserMixin #Gives user object flask login parameters
 from sqlalchemy.sql import func
 from flask_wtf import FlaskForm 
 from flask_login import current_user
+from flask import flash
 
-
-class Note(database.Model):
-    id = database.Column(database.Integer, primary_key =True)
-    user_id = database.Column(database.Integer, database.ForeignKey('user.id'))
 """
 Pacing class:
 Contains the database entries for all of the pacing modes, it contains the user_id as a Foreign Key
@@ -36,7 +33,6 @@ class User(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(150), unique=True) #Maximum length = 150, only unique usernames
     password = database.Column(database.String(150))
-    notes = database.relationship('Note')
     pacing = database.relationship('Pacing')
 
 """
@@ -49,40 +45,52 @@ def countUsers(database):
 VARIOUS SETTER FUNCTIONS TO SET PARAMETERS IN DATABASE
 """
 
-def setMode(database, mode_input):
-    Pacing(mode = mode_input, user_id = current_user.id)
-    database.session.commit() 
+def setMode(mode_input):
+    if (Pacing.query.filter_by(mode = mode_input).first()): #If pacing mode exists
+        return
+    else:
+        pacingMode = Pacing(mode = mode_input, user_id = current_user.id)
+        database.session.add(pacingMode)
+        database.session.commit()
 
 def setLRL(database, LRL_input):
-    Pacing(LRL = LRL_input, user_id = current_user.id)
+    LRL = Pacing(LRL = LRL_input, user_id = current_user.id)
+    database.session.add(LRL)
     database.session.commit() 
 
 def setURL(database, URL_input):
-    Pacing(LRL = URL_input, user_id = current_user.id)
+    URL = Pacing(LRL = URL_input, user_id = current_user.id)
+    database.session.add(URL)
     database.session.commit() 
 
 def setATR_AMP(database, ATR_AMP_input):
-    Pacing(ATR_AMP = ATR_AMP_input, user_id = current_user.id)
+    ATR_AMP = Pacing(ATR_AMP = ATR_AMP_input, user_id = current_user.id)
+    database.session.add(ATR_AMP)
     database.session.commit() 
 
 def setVENT_AMP(database, VENT_AMP_input):
-    Pacing(VENT_AMP = VENT_AMP_input, user_id = current_user.id)
+    VENT_AMP = Pacing(VENT_AMP = VENT_AMP_input, user_id = current_user.id)
+    database.session.add(VENT_AMP)
     database.session.commit() 
 
 def setATR_PW(database, ATR_PULSE_WIDTH_input):
-    Pacing(ATR_PULSE_WIDTH = ATR_PULSE_WIDTH_input, user_id = current_user.id)
+    ATR_PW = Pacing(ATR_PULSE_WIDTH = ATR_PULSE_WIDTH_input, user_id = current_user.id)
+    database.session.add(ATR_PW)
     database.session.commit() 
 
 def setVENT_PW(database, VENT_PULSE_WIDTH_input):
-    Pacing(VENT_PULSE_WIDTH = VENT_PULSE_WIDTH_input, user_id = current_user.id)
+    VENT_PW = Pacing(VENT_PULSE_WIDTH = VENT_PULSE_WIDTH_input, user_id = current_user.id)
+    database.session.add(VENT_PW)
     database.session.commit() 
 
 def setVRP(database, VRP_input):
-    Pacing(VRP = VRP_input, user_id = current_user.id)
+    VRP = Pacing(VRP = VRP_input, user_id = current_user.id)
+    database.session.add(VRP)
     database.session.commit() 
 
 def setARP(database, ARP_input):
-    Pacing(ARP = ARP_input, user_id = current_user.id)
+    ARP = Pacing(ARP = ARP_input, user_id = current_user.id)
+    database.session.add(ARP)
     database.session.commit() 
 
 
