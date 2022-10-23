@@ -1,3 +1,7 @@
+"""
+Contains all of the initial properties for the flask app
+"""
+
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from os import path 
@@ -18,8 +22,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     database.init_app(app) #Gives database access to flask app
     
-    from .pages import pages
-    from .auth import auth
+    from .pages import pages #Imports pages view from pages
+    from .auth import auth #Imports the authentication file
 
     app.register_blueprint(pages, url_prefix = '/')
     app.register_blueprint(auth, url_prefix = '/')
@@ -33,10 +37,10 @@ def create_app():
     credentials
     Accomplished through querying with sqlite database.db file 
     """
-    login_manager = LoginManager()
+    login_manager = LoginManager() # New instance of login manager function
     login_manager.login_view = 'auth.login'
-    login_manager.init_app(app) 
-    @login_manager.user_loader
+    login_manager.init_app(app) # Initializes the login manager in the flask app
+    @login_manager.user_loader #Loads the user by checking their primary key in the database
     def load_user(id):
         return User.query.get(int(id)) #Looks for primary key of the user 
     return app
