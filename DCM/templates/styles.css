@@ -1,16 +1,11 @@
-::placeholder {
-    color: blue;
-  }
-  
-  .force-opaque::placeholder {
-    opacity: 1;
-  }
-  ul {
-    display: block;
-    list-style-type: disc;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0px;
-  }
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform:   rotateX(0);
+    }
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:5000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="viewport" content="width = device-width" ,="" initial-scale="1&quot;">
+        <!--importing bootstrap -->
+        <link rel="stylesheet" href="./Changed_files/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <!--importing bootstrap -->
+      <link rel="stylesheet" href="./Changed_files/font-awesome.min.css" crossorigin="anonymous">    
+      <style>
+        body {
+          background-color: white;
+          color: black;
+
+        }
+      </style>
+        <!--using jinja for python code-->
+      <title>Changed</title>
+
+    <style type="text/css">@font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }</style></head>
+    <body class="vsc-initialized">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar"> 
+                <div class="navbar-nav">
+                  
+                    <a class="nav-item nav-link" id="login" href="http://127.0.0.1:5000/">Home</a>
+                    <a class="nav-item nav-link" id="login" href="http://127.0.0.1:5000/logout">Logout</a>
+                    
+                </div>
+            </div>
+        </nav>
+
+        
+        
+        
+        <div class="container">
+        
+<link rel="stylesheet" href="./Changed_files/styles.css">
+<div class="Homepage"> 
+<p class="h1" align="center">DCM INTERFACE</p>   
+<p class="h4" align="right">Pacemaker: Not Connected</p>  
+<p class="h4" align="right">PACEMAKER ID:</p> 
+<p class="h4" align="center" label="" for="standard-select">PACING MODE</p>
+<form name="Pacing" form="" align="center" method="POST" action="http://127.0.0.1:5000/"> 
+<div class="select">
+  <select name="pacingModes" id="pacingModes" method="POST">
+    <option value="AOO" class="AOO">AOO</option>
+    <option value="VOO" class="VOO">VOO</option>
+    <option value="AAI" class="AAI">AAI</option>
+    <option value="VVI" class="VVI">VVI</option>
+  </select>
+</div>
+
+<div id="AOO" class="pacingMode" style="display: none;">
+  <ul class="forms"> 
+  <li><input type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+  <li><input type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+  <li><input type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+  <li><input type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+  </ul> 
+</div>
+
+<div id="VOO" class="pacingMode" style="display: block;">
+  <ul class="forms">
+    <li><input name="ATR_AMP" input="" type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+    <li><input name="VENT_AMP" input="" type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+    <li><input name="ATR_PW" input="" type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+    <li><input name="VENT_PW" input="" type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+  </ul> 
+</div>
+
+<div id="AAI" class="pacingMode" style="display: none;">
+  <ul class="forms">
+    <li><input name="ATR_AMP" input="" type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+    <li><input name="VENT_AMP" input="" type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+    <li><input name="ATR_PW" input="" type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+    <li><input name="VENT_PW" input="" type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+    <li><input name="LRL" input="" type="integer" placeholder="LOWER RATE LIMIT"></li>
+    <li><input name="URL" input="" type="integer" placeholder="UPPER RATE LIMIT"></li>
+    <li><input name="VRP" input="" type="integer" placeholder="VRP"></li>
+    <li><input name="ARP" input="" type="integer" placeholder="ARP"></li>
+  </ul>
+</div>
+
+<div id="VVI" class="pacingMode" style="display: none;">
+  <ul class="forms">
+  <li><input name="ATR_AMP" input="" type="integer" placeholder="ATRIUM AMPLITUDE"></li>
+  <li><input name="VENT_AMP" input="" type="integer" placeholder="VENTRICULAR AMPLITUDE"></li>
+  <li><input name="ATR_PW" input="" type="integer" placeholder="ATRIUM PULSE WIDTH"></li>
+  <li><input name="VENT_PW" input="" type="integer" placeholder="VENTRICULAR PULSE WIDTH"></li>
+  <li><input name="LRL" input="" type="integer" placeholder="LOWER RATE LIMIT"></li>
+  <li><input name="URL" input="" type="integer" placeholder="UPPER RATE LIMIT"></li>
+  <li><input name="VRP" input="" type="integer" placeholder="VRP"></li>
+  <li><input name="ARP" input="" type="integer" placeholder="ARP"></li>
+  </ul>
+</div>
+<br>
+
+<button type="submit" class="btn btn-primary align-center ">Submit</button>
+</form>
+</div>
+
+
+
+
+
+        </div>
+
+        <script src="./Changed_files/jquery-3.2.1.slim.min.js.download" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./Changed_files/popper.min.js.download" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./Changed_files/bootstrap.min.js.download" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <!--Only runs script if page is on home-->
+    
+    
+    <style>
+
+    ul.forms{
+      list-style-type:none;
+      margin: 0;
+      padding: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-family: helvetica;
+    }
+    .pacingMode{
+      display:none;
+    }
+    select.select.pacingModes option:hover {
+    box-shadow: 0 0 100px 100px #ff0000 inset;
+}
+  
+    </style>
+    <script>
+      $(document).ready(function(){
+        var $pacingModes = $(".pacingMode"), $selector = $('#pacingModes');
+        $pacingModes.first().show();
+        $selector.change(function() {
+          var selected = $(this).find('option:selected').attr('class');
+          $pacingModes.hide();
+          $('#' + selected + '.pacingMode').show();
+        });
+      });
+
+    </script> 
+      
+
+    
+
+
+    
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.6076232842435476', methodName, methodArgs }, 'http://127.0.0.1:5000');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>
