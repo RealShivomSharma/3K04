@@ -2,10 +2,13 @@
 {% extends "base.html" %}
 {% block title %}Changed{% endblock %}
 {% block content %}
-  
+<link rel = "stylesheet" href = "templates/styles.css">
+<div class = "Homepage"> 
 <p class= "h1" align = "center" >DCM INTERFACE</p>   
-<p class = "h4" label for="standard-select">PACING MODE</label></p>
-<form name = "Pacing" form method="POST" action="{{ url_for('pages.home') }}"> 
+<p class= "h4" align = "right" >Pacemaker: Not Connected</p>  
+<p class ="h4" align = "right" >PACEMAKER ID:</p> 
+<p class = "h4" class align = "center" label for="standard-select">PACING MODE</label></p>
+<form name = "Pacing" form align = "center" form method="POST" action="{{ url_for('pages.home') }}"> 
 <div class="select">
   <select name = "pacingModes" id="pacingModes" method = "POST">
     <option value="AOO" class = "AOO">AOO</option>
@@ -62,6 +65,10 @@
 
 <button type = "submit" class = "btn btn-primary align-center ">Submit</button>
 </form>
+</div>
+
+
+
 
 {% endblock %}
         
