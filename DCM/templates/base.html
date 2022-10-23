@@ -1,4 +1,9 @@
 <!DOCTYPE html> 
+<!--
+Contains all of the main website functionality in the HTML markup
+Extends to all classes that are a page on the page: Login, Register, Home, etc
+Provide functionality to all of the pages
+-->
 <html>
     <head>
         <meta charset = "utf-8" />
@@ -43,7 +48,12 @@
                 </div>
             </div>
         </nav>
-
+        <!--
+        Contains functionality for flashing message
+        Checks to see if there are messages 
+        If the category is an error flashes the alert from bootstrap style
+        Otherwise Shows a success alert
+        -->
         {% with messages = get_flashed_messages(with_categories = true) %}
         {% if messages %}
           {% for category, message in messages %}
@@ -71,7 +81,9 @@
         
         {% endblock %}
         </div>
-
+        <!--
+          Imports Jquery, Bootstrap and popper
+        -->
         <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -90,30 +102,31 @@
     
     <!--Only runs script if page is on home-->
     {% if home == 'TRUE' %}
-    
+    <!-- Styles the forms on home page-->
     <style>
-
     ul.forms{
-      list-style-type:none;
+      /* Removes the padding on left and list style for the unordered list */
+      list-style-type:none; 
       margin: 0;
       padding: 0;
       padding-top: 20px;
       padding-bottom: 20px;
       font-family: helvetica;
     }
+    /* Hides the pacing modes displayed initially */
     .pacingMode{
       display:none;
     }
-  
+    /* Jquery Script to only reveal the forms once the dropdown is clicked */
     </style>
     <script>
-      $(document).ready(function(){
-        var $pacingModes = $(".pacingMode"), $selector = $('#pacingModes');
-        $pacingModes.first().show();
-        $selector.change(function() {
-          var selected = $(this).find('option:selected').attr('class');
-          $pacingModes.hide();
-          $('#' + selected + '.pacingMode').show();
+      $(document).ready(function(){ // Readies the document to run the function
+        var $pacingModes = $(".pacingMode"), $selector = $('#pacingModes'); //Creates pacing mode entrie and selector
+        $pacingModes.first().show();  // Reveals the first form before dropdown is pressed
+        $selector.change(function() { // Checks for change in selector
+          var selected = $(this).find('option:selected').attr('class'); //Identifies the selected property
+          $pacingModes.hide(); // Hides other pacing modes
+          $('#' + selected + '.pacingMode').show(); //Reveals the selected pacing mode form
         });
       });
 
