@@ -17,7 +17,7 @@ def home():
     if request.method == 'POST': #If the user is posting data
         pacingMode = request.form.get('pacingModes') #Get the pacing mode from the form
         setMode(pacingMode) #Adds the mode to the database
-
+        
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
 
         
