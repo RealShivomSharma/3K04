@@ -14,3 +14,7 @@ REQUIRED LIBRARIES:
 - flask_login
 - werkzeug.security
 - sqlalchemy
+
+
+--------Simulink--------
+-> DSP Toolbox is required for the accelerometer signal smoothing
