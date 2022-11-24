@@ -129,19 +129,12 @@ Provide functionality to all of the pages
     let VENT_PW_val = document.getElementById('VENT_PW');
     let VRPval = document.getElementById('VRP');
     let ARPval = document.getElementById('ARP');
-    let PVARPval = document.getElementById('PVARP');
     let Hysteresisval = document.getElementById('Hysteresis');
-    let Rate_Smoothing_val = docuemnt.getElementById('Rate_Smoothing');
-
-    //Initial values for AOO 
-
-    //Initial values for VOO 
-  
-    //Initial values for AAI 
-
-    //Initial values for VVI 
+    let Rate_Smoothing_val = document.getElementById('Rate_Smoothing');
+    let ATR_SENS_val = document.getElementById('ATR_SENS')
+    let VENT_SENS_val = document.getElementById('VENT_SENS')
     </script>
-
+    
     <script>
      $(function() {
       $('#Master').show(); 
@@ -153,9 +146,9 @@ Provide functionality to all of the pages
             $('#VENT_PW').hide();
             $('#VRP').hide();
             $('#ARP').hide();
-            $('#PVARP').hide();
-            $('#Hysteresis').hide();
-            $('#Rate_Smoothing').hide();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').hide();
     $('#pacingModes').change(function(){
         if($('#pacingModes').val() == 'AOO') {
             $('#Master').show(); 
@@ -167,9 +160,9 @@ Provide functionality to all of the pages
             $('#VENT_PW').hide();
             $('#VRP').hide();
             $('#ARP').hide();
-            $('#PVARP').hide();
-            $('#Hysteresis').hide();
-            $('#Rate_Smoothing').hide();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').hide();
         }
  
         else if($('#pacingModes').val() == 'VOO') {
@@ -182,9 +175,9 @@ Provide functionality to all of the pages
             $('#VENT_PW').show();
             $('#ARP').hide();
             $('#VRP').hide();
-            $('#PVARP').hide();
-            $('#Hysteresis').hide();
-            $('#Rate_Smoothing').hide();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').hide();
         }
         else if($('#pacingModes').val() == 'AAI') {
           $('#Master').show(); 
@@ -196,9 +189,9 @@ Provide functionality to all of the pages
             $('#VENT_PW').hide();
             $('#ARP').hide();
             $('#VRP').hide();
-            $('#PVARP').show();
-            $('#Hysteresis').show();
-            $('#Rate_Smoothing').show();
+            $('#ATR_SENS').show();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').hide();
            
         }
         else if($('#pacingModes').val() == 'VVI') {
@@ -210,11 +203,62 @@ Provide functionality to all of the pages
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
             $('#VRP').show();
-            $('#PVARP').show();
-            $('#Hysteresis').show();
-            $('#Rate_Smoothing').show();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').show();
+            $('#ACTIVITY_THRESHOLD').hide();
         }
-
+        else if($('#pacingModes').val() == 'AOOR') {
+          $('#Master').show(); 
+            $('#LRL').show();
+            $('#URl').show();
+            $('#ATR_AMP').hide();  
+            $('#ATR_PW').hide(); 
+            $('#VENT_AMP').show();
+            $('#VENT_PW').show();
+            $('#VRP').show();
+            $('#ATR_SENS').show();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').show();
+        }
+        else if($('#pacingModes').val() == 'VOOR') {
+          $('#Master').show(); 
+            $('#LRL').show();
+            $('#URl').show();
+            $('#ATR_AMP').hide();  
+            $('#ATR_PW').hide(); 
+            $('#VENT_AMP').show();
+            $('#VENT_PW').show();
+            $('#VRP').show();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').show();
+        }
+        else if($('#pacingModes').val() == 'AAIR') {
+          $('#Master').show(); 
+            $('#LRL').show();
+            $('#URl').show();
+            $('#ATR_AMP').hide();  
+            $('#ATR_PW').hide(); 
+            $('#VENT_AMP').show();
+            $('#VENT_PW').show();
+            $('#VRP').show();
+            $('#ATR_SENS').show();
+            $('#VENT_SENS').hide();
+            $('#ACTIVITY_THRESHOLD').show();
+        }
+        else if($('#pacingModes').val() == 'VVIR') {
+          $('#Master').show(); 
+            $('#LRL').show();
+            $('#URl').show();
+            $('#ATR_AMP').hide();  
+            $('#ATR_PW').hide(); 
+            $('#VENT_AMP').show();
+            $('#VENT_PW').show();
+            $('#VRP').show();
+            $('#ATR_SENS').hide();
+            $('#VENT_SENS').show();
+            $('#ACTIVITY_THRESHOLD').show();
+        }
         else{
           
         } 
@@ -224,7 +268,48 @@ Provide functionality to all of the pages
 
     </script> 
       
+      <script> 
+        function checkValue(sender) {
+            let min = sender.min;
+            let max = sender.max;
+            // here we perform the parsing instead of calling another function
+            let value = parseInt(sender.value);
+            if (value>max) {
+                sender.value = max;
+            } else if (value<min) {
+                sender.value = min;
+            }
+        }
+      </script>
+      <script>
+        function getVals(){
+  // Get slider values
+  var parent = this.parentNode;
+  var slides = parent.getElementsByTagName("input");
+    var slide1 = parseFloat( slides[0].value );
+    var slide2 = parseFloat( slides[1].value );
+  // Neither slider will clip the other, so make sure we determine which is larger
+  if( slide1 > slide2 ){ var tmp = slide2; slide2 = slide1; slide1 = tmp; }
+  
+  var displayElement = parent.getElementsByClassName("rangeValues")[0];
+      displayElement.innerHTML = slide1 + " - " + slide2;
+}
 
+window.onload = function(){
+  // Initialize Sliders
+  var sliderSections = document.getElementsByClassName("range-slider");
+      for( var x = 0; x < sliderSections.length; x++ ){
+        var sliders = sliderSections[x].getElementsByTagName("input");
+        for( var y = 0; y < sliders.length; y++ ){
+          if( sliders[y].type ==="range" ){
+            sliders[y].oninput = getVals;
+            // Manually trigger event first time to display values
+            sliders[y].oninput();
+          }
+        }
+      }
+}
+      </script> 
     {%endif%}
 
 

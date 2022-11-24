@@ -11,7 +11,7 @@ from sqlalchemy.sql import func #Imports sql alchemy func library
 from flask_wtf import FlaskForm  #Import flask forms from WTFLASK
 from flask_login import current_user #Import the current_user function from flask login
 from flask import flash #Import the flash function from flask (flashes error messages)
-
+from datetime import datetime
 """
 Pacing class:
 Contains the database entries for all of the pacing modes, it contains the user_id as a Foreign Key
@@ -30,6 +30,14 @@ class Pacing(database.Model):
     VENT_PW = database.Column(database.Integer) #vENTRICULAR PULSE WIDTH
     VRP = database.Column(database.Integer) #
     ARP = database.Column(database.Integer) #LOWER RATE LIMIT
+    ATR_SENS = database.Column(database.Integer)
+    VENT_SENS = database.Column(database.Integer)
+    REACTION_TIME = database.Column(database.Integer)
+    RESPONSE_FACTOR = database.Column(database.Integer)
+    RECOVERY_TIME = database.Column(database.Integer)
+    ACT_LOW = database.Column(database.Integer) 
+    ACT_HIGH = database.Column(database.Integer)
+    
 
 """
 User Class:
@@ -131,7 +139,7 @@ def setPVARP(PVARP_input, mode_input):
     mode = getMode(mode_input)
     mode.PVARP = PVARP_input
     database.session.commit() 
-
+"""
 def setHysteresis(HYSTERESIS_input, mode_input):
     mode = getMode(mode_input) 
     if (HYSTERESIS_input == "" or HYSTERESIS_input == None or mode_input == "AOO" or mode_input == "VOO"):
@@ -139,6 +147,7 @@ def setHysteresis(HYSTERESIS_input, mode_input):
     mode = getMode(mode_input)
     mode.Hysteresis = HYSTERESIS_input
     database.session.commit() 
+"""
 
 def setRate_Smoothing(RATE_SMOOTHING_input, mode_input):
     mode = getMode(mode_input) 
@@ -149,4 +158,19 @@ def setRate_Smoothing(RATE_SMOOTHING_input, mode_input):
     mode.Rate_Smoothing = RATE_SMOOTHING_input
     database.session.commit()    
 
+def setATR_SENS(ATR_SENS_input, mode_input):
+    mode = getMode(mode_input) 
+    if (ATR_SENS_input == "" or ATR_SENS_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input == "VVI" or mode_input =="AOOR" or mode_input == "VOOR" or mode_input == "VVIR"):
+        return
+    mode = getMode(mode_input)
+    mode.ATR_SENS = ATR_SENS_input
+    database.session.commit() 
+
+def setVENT_SENS(VENT_SENS_input, mode_input):
+    mode = getMode(mode_input) 
+    if (VENT_SENS_input == "" or VENT_SENS_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AOOR" or mode_input =="VOOR" or mode_input == "VVI" or mode_input == "VVIR") :
+        return
+    mode = getMode(mode_input)
+    mode.ATR_SENS = VENT_SENS_input
+    database.session.commit() 
 

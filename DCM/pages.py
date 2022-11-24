@@ -24,10 +24,16 @@ def home():
         VENT_PW = request.form.get('VENT_PW')
         VRP = request.form.get('VRP')
         ARP = request.form.get('ARP')
-        PVARP = request.form.get('PVARP')
-        Hysteresis = request.form.get('Hysteresis')
-        Rate_Smoothing = request.form.get('Rate_Smoothing')
+        ACTlow = request.form.get('ACTlow')
+        ACThigh = request.form.get('ACThigh')
 
+        if (LRL > URL):
+            flash("LRL may not exceed URL", category = 'error')
+            return render_template("home.html", user = current_user, home = 'TRUE')
+        if (ACTlow > ACThigh):
+            flash("Low threshold may not exceed high threshold")
+            return render_template("home.html", user = current_user, home = 'TRUE')
+        
         setMode(pacingMode) #Adds the mode to the database
         setLRL(LRL, pacingMode)
         setURL(URL, pacingMode)
@@ -37,9 +43,6 @@ def home():
         setVENT_PW(VENT_PW, pacingMode)
         setVRP(VRP, pacingMode)
         setARP(ARP, pacingMode)
-        setPVARP(PVARP, pacingMode)
-        setHysteresis(Hysteresis, pacingMode)
-        setRate_Smoothing(Rate_Smoothing, pacingMode)
 
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
     

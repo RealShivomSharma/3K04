@@ -2,13 +2,77 @@
 {% extends "base.html" %}
 {% block title %}Changed{% endblock %}
 {% block content %}
+
+<style>
+p{margin-bottom: 0;}
+.wrapped{
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+
+}
+.inputWrapper{width: 30%;}
+</style>
+<style>
+     section.range-slider {
+    position: relative;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+}
+
+section.range-slider input {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 15px;
+    width: 200px;
+    outline: none;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+section.range-slider input::-webkit-slider-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 1;
+    outline: 0;
+}
+
+section.range-slider input::-moz-range-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
+    -moz-appearance: none;
+    width: 9px;
+}
+
+section.range-slider input::-moz-range-track {
+    position: relative;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 1);
+    border: 0;
+}
+section.range-slider input:last-of-type::-moz-range-track {
+    -moz-appearance: none;
+    background: none transparent;
+    border: 0;
+}
+  section.range-slider input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+</style>
+
+
 <!-- Div to put the homepage into one class-->
 <div class = "Homepage"> 
 <p class= "h1" align = "center" >DCM INTERFACE</p>   
 <p class= "h4" align = "right" >Pacemaker: Not Connected</p>  
 <p class ="h4" align = "right" >PACEMAKER ID:</p> 
-<p class = "h4" class align = "center" label for="standard-select">PACING MODE</label></p>
-<form name = "Pacing" form align = "center" form method="POST" action="{{ url_for('pages.home') }}"> 
+<p class = "h4" class align = "left" label for="standard-select">PACING MODE</label></p>
+<form name = "Pacing" form align = "left" form method="POST" action="{{ url_for('pages.home') }}"> 
 <!-- Div containing the pacing mode selection-->
   <div class="select">
   <select name = "pacingModes" id="pacingModes" method = "POST">
@@ -16,49 +80,59 @@
     <option value="VOO" class = "VOO">VOO</option>
     <option value="AAI" class = "AAI">AAI</option>
     <option value="VVI" class = "VVI">VVI</option>
+    <option value="AOOR" class = "AOOR">AOOR</option>
+    <option value="VOOR" class = "VOOR">VOOR</option>
+    <option value="AAIR" class = "AAIR">AAIR</option>
+    <option value="VVIR" class = "VVIR">VVIR</option>
   </select>
 </div>
 <div id = "Master">
 <ul class = "forms">
-
-<div id = "LRL">
-  <li><input type = "number" input name="LRL" input type="integer" min = "0" placeholder="Lower Rate Limit"></li>
+<div id = "LRL" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="LRL" input type="number" min = "50" max = "175" step = "5" oninput="checkValue(this);" placeholder="Lower Rate Limit" ></li>
 </div> 
-
-<div id = "URL">
-  <li><input type = "number" input name="URL" input type="integer" min = "0" placeholder="Upper Rate Limit"></li>
+<div id = "URL" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="URL" input type="number" min = "50" max = "175" step = "5" oninput="checkValue(this);" placeholder="Upper Rate Limit"></li>
 </div> 
-<div id = "VENT_AMP">
-  <li><input type = "number" input name="VENT_AMP" input type="integer"min = "0" placeholder="Ventricular Amplitude"></li>
+<div id = "VENT_AMP" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="VENT_AMP" input type="number" min = "0" max = "5.0" step= "1.25" oninput="checkValue(this);" placeholder="Ventricular Amplitude"></li>
 </div> 
-<div id = "ATR_AMP">
-  <li><input type = "number" input name="ATR_AMP" input type="integer"min = "0" placeholder="Atrial Amplitude"></li>
+<div id = "ATR_AMP" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="ATR_AMP" input type="number" min = "0" max = "5.0" step="1.25" oninput="checkValue(this);" placeholder="Atrial Amplitude"></li>
 </div> 
-<div id = "VENT_PW">
-  <li><input type = "number" input name="VENT_PW" input type="integer" min = "0"placeholder="Ventricular Pulse Width"></li>
+<div id = "VENT_PW" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="VENT_PW" input type="number" min = "0" max = "1.9" step="0.1" oninput="checkValue(this);" placeholder="Ventricular Pulse Width"></li>
 </div> 
-<div id = "ATR_PW">
-  <li><input type = "number" input name="ATR_PW" input type="integer"min = "0" placeholder="Atrial Pulse Width"></li>
+<div id = "ATR_PW" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="ATR_PW" input type="number" min = "0.1" max = "1.9" step = "0.1" oninput="checkValue(this);" placeholder="Atrial Pulse Width"></li>
 </div> 
-<div id = "VRP">
-  <li><input type = "number" input name="VRP" input type="integer"min = "0"  placeholder="VRP"></li>
+<div id = "VRP" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="VRP" input type="number" min = "150" max = "500" step = "10"  oninput="checkValue(this);" placeholder="VRP"></li>
 </div> 
-<div id = "ARP">
-  <li><input type = "number" input name="VRP" input type="integer" min = "0"placeholder="ARP"></li>
+<div id = "ARP" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="VRP" input type="number" min = "150" max = "500" step = "10" oninput="checkValue(this);" placeholder="ARP"></li>
 </div> 
-<div id = "PVARP">
-  <li><input type = "number" input name="PVARP" input type="integer"min = "0" placeholder="PVARP"></li>
+<div id = "ATR_SENS" class = "inputWrapper">
+  <li><input class = "wrapped" input type = "number" input name="ATR_SENS" input type="number" min = "1.0" max = "10.0" step = "0.5" oninput="checkValue(this);" placeholder="Atrial Sensitivity"></li>
 </div> 
-<div id = "Hysteresis">
-  <li><input type= "number" input name="Hysteresis" input type="integer" min = "0" placeholder="Hysteresis"></li>
-</div>
-<div id = "Rate_Smoothing">
-  <li><input type = "number" input name="Rate Smoothing" input type="integer" min = "0" placeholder="Rate Smoothing"></li>
+<div id = "VENT_SENS" class = "inputWrapper">
+    <li><input class = "wrapped" input type = "number" input name="VENT_SENS" input type="number" min = "1.0" max = "10.0" step = "0.5" oninput="checkValue(this);" placeholder="Ventricular Sensitivity"></li>
+</div>   
+<div id = "ACTIVITY_THRESHOLD">
+<label for = "ACTIVITY_THRESHOLD"> 
+Activity Threshold
+</label> 
+<section class="range-slider">
+    <span class="rangeValues"></span>
+    <input name = "ACTlow" input value="0" min="0" max="40" step="0.5"  type="range">
+    <input name = "ACThigh" input value= "40" min="0" max="40" step="0.5" type="range">
+  </section>
 </div>
 </ul> </div>
 <button type = "submit" class = "btn btn-primary align-center ">Submit</button>
 </form>
 </div>
+
 
 {% endblock %}
         
