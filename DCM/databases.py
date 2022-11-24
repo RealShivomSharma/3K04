@@ -37,8 +37,6 @@ class Pacing(database.Model):
     RECOVERY_TIME = database.Column(database.Integer)
     ACT_LOW = database.Column(database.Integer) 
     ACT_HIGH = database.Column(database.Integer)
-    
-
 """
 User Class:
 Contains a unique id for every user entry 
@@ -88,7 +86,7 @@ def setURL(URL_input, mode_input):
 
 def setATR_AMP(ATR_AMP_input, mode_input):
     mode = getMode(mode_input)
-    if (ATR_AMP_input == "" or ATR_AMP_input == None or mode_input == "VOO" or mode_input == "VVI"):
+    if (ATR_AMP_input == "" or ATR_AMP_input == None or mode_input == "VOO" or mode_input == "VVI" or mode_input == "VOOR" or mode_input == "VVIR"):
         return
     mode.ATR_AMP = ATR_AMP_input
     database.session.commit() 
@@ -96,7 +94,7 @@ def setATR_AMP(ATR_AMP_input, mode_input):
 def setVENT_AMP(VENT_AMP_input, mode_input):
     
     mode = getMode(mode_input)
-    if (VENT_AMP_input == "" or VENT_AMP_input == None or mode_input == "AOO" or mode_input == "AAI"):
+    if (VENT_AMP_input == "" or VENT_AMP_input == None or mode_input == "AOO" or mode_input == "AAI" or mode_input == "AOOR" or mode_input == "AAIR"):
         return
     mode.VENT_AMP = VENT_AMP_input
     database.session.commit() 
@@ -104,59 +102,32 @@ def setVENT_AMP(VENT_AMP_input, mode_input):
 
 def setATR_PW(ATR_PW_input, mode_input):
     mode = getMode(mode_input) 
-    if (ATR_PW_input == "" or ATR_PW_input == None or mode_input == "VOO" or mode_input ==  "VVI"):
+    if (ATR_PW_input == "" or ATR_PW_input == None or mode_input == "VOO" or mode_input ==  "VVI" or mode_input == "VOOR" or mode_input == "VVIR"):
         return
     mode.ATR_PW = ATR_PW_input
     database.session.commit() 
 
 def setVENT_PW(VENT_PW_input, mode_input):
     mode = getMode(mode_input) 
-    if (VENT_PW_input == "" or VENT_PW_input == None or mode_input == "AOO" or mode_input == "AAI"):
+    if (VENT_PW_input == "" or VENT_PW_input == None or mode_input == "AOO" or mode_input == "AAI" or mode_input == "AOOR" or mode_input == "AAIR"):
         return
     mode.VENT_PW = VENT_PW_input
     database.session.commit() 
 
-
 def setVRP(VRP_input, mode_input):
     mode = getMode(mode_input) 
-    if (VRP_input == "" or VRP_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input == "AAI"):
+    if (VRP_input == "" or VRP_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input == "AAI" or mode_input == "AOO" or mode_input=="VOOR" or mode_input == "AAIR"):
         return
     mode.VRP = VRP_input
     database.session.commit()  
 
 def setARP(ARP_input, mode_input):
     mode = getMode(mode_input) 
-    if (ARP_input == "" or ARP_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input == "VVI"):
+    if (ARP_input == "" or ARP_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input == "VVI" or mode_input == "AOOR" or mode_input == "VOOR" or mode_input =="VVIR"):
         return
     mode = getMode(mode_input)
     mode.ARP = ARP_input
     database.session.commit() 
-
-def setPVARP(PVARP_input, mode_input):
-    mode = getMode(mode_input) 
-    if (PVARP_input == "" or PVARP_input == None or mode_input == "AOO" or mode_input == "VOO"):
-        return
-    mode = getMode(mode_input)
-    mode.PVARP = PVARP_input
-    database.session.commit() 
-"""
-def setHysteresis(HYSTERESIS_input, mode_input):
-    mode = getMode(mode_input) 
-    if (HYSTERESIS_input == "" or HYSTERESIS_input == None or mode_input == "AOO" or mode_input == "VOO"):
-        return
-    mode = getMode(mode_input)
-    mode.Hysteresis = HYSTERESIS_input
-    database.session.commit() 
-"""
-
-def setRate_Smoothing(RATE_SMOOTHING_input, mode_input):
-    mode = getMode(mode_input) 
-    if (RATE_SMOOTHING_input == "" or RATE_SMOOTHING_input == None or mode_input == "AOO" or mode_input == "VOO"):
-        return
-    mode = getMode(mode_input)
-
-    mode.Rate_Smoothing = RATE_SMOOTHING_input
-    database.session.commit()    
 
 def setATR_SENS(ATR_SENS_input, mode_input):
     mode = getMode(mode_input) 
@@ -174,3 +145,41 @@ def setVENT_SENS(VENT_SENS_input, mode_input):
     mode.ATR_SENS = VENT_SENS_input
     database.session.commit() 
 
+def setACTlow(ACTlow_input, mode_input):
+    mode = getMode(mode_input) 
+    if (ACTlow_input == "" or ACTlow_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode = getMode(mode_input)
+    mode.ACTlow = ACTlow_input
+    database.session.commit() 
+
+def setACThigh(ACThigh_input, mode_input):
+    mode = getMode(mode_input) 
+    if (ACThigh_input == "" or ACThigh_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode = getMode(mode_input)
+    mode.ACThigh = ACThigh_input
+    database.session.commit() 
+def setREACTION_TIME(REACTION_TIME_input, mode_input):
+    mode = getMode(mode_input) 
+    if (REACTION_TIME_input == "" or REACTION_TIME_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode = getMode(mode_input)
+    mode.REACTION_TIME = REACTION_TIME_input
+    database.session.commit() 
+
+def setRECOVERY_TIME(RECOVERY_TIME_input, mode_input):
+    mode = getMode(mode_input) 
+    if (RECOVERY_TIME_input == "" or RECOVERY_TIME_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode = getMode(mode_input)
+    mode.RECOVERY_TIME = RECOVERY_TIME_input
+    database.session.commit() 
+
+def setRESPONSE_FACTOR(RESPONSE_FACTOR_input, mode_input):
+    mode = getMode(mode_input) 
+    if (RESPONSE_FACTOR_input == "" or RESPONSE_FACTOR_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode = getMode(mode_input)
+    mode.RESPONSE_FACTOR = RESPONSE_FACTOR_input
+    database.session.commit() 

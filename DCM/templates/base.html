@@ -148,6 +148,9 @@ Provide functionality to all of the pages
             $('#ARP').hide();
             $('#ATR_SENS').hide();
             $('#VENT_SENS').hide();
+            $('#REACTION_TIME').hide();
+            $('#RESPONSE_FACTOR').hide();
+            $('#RECOVERY_TIME').hide();
             $('#ACTIVITY_THRESHOLD').hide();
     $('#pacingModes').change(function(){
         if($('#pacingModes').val() == 'AOO') {
@@ -163,6 +166,10 @@ Provide functionality to all of the pages
             $('#ATR_SENS').hide();
             $('#VENT_SENS').hide();
             $('#ACTIVITY_THRESHOLD').hide();
+            $('#REACTION_TIME').hide();
+            $('#RESPONSE_FACTOR').hide();
+            $('#RECOVERY_TIME').hide();
+
         }
  
         else if($('#pacingModes').val() == 'VOO') {
@@ -178,6 +185,10 @@ Provide functionality to all of the pages
             $('#ATR_SENS').hide();
             $('#VENT_SENS').hide();
             $('#ACTIVITY_THRESHOLD').hide();
+            $('#REACTION_TIME').hide();
+            $('#RESPONSE_FACTOR').hide();
+            $('#RECOVERY_TIME').hide();
+
         }
         else if($('#pacingModes').val() == 'AAI') {
           $('#Master').show(); 
@@ -187,11 +198,15 @@ Provide functionality to all of the pages
             $('#ATR_PW').show(); 
             $('#VENT_AMP').hide();
             $('#VENT_PW').hide();
-            $('#ARP').hide();
+            $('#ARP').show();
             $('#VRP').hide();
             $('#ATR_SENS').show();
             $('#VENT_SENS').hide();
             $('#ACTIVITY_THRESHOLD').hide();
+            $('#REACTION_TIME').hide();
+            $('#RESPONSE_FACTOR').hide();
+            $('#RECOVERY_TIME').hide();
+
            
         }
         else if($('#pacingModes').val() == 'VVI') {
@@ -203,9 +218,14 @@ Provide functionality to all of the pages
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
             $('#VRP').show();
+            $('#ARP').hide();
             $('#ATR_SENS').hide();
             $('#VENT_SENS').show();
             $('#ACTIVITY_THRESHOLD').hide();
+            $('#REACTION_TIME').hide();
+            $('#RESPONSE_FACTOR').hide();
+            $('#RECOVERY_TIME').hide();
+
         }
         else if($('#pacingModes').val() == 'AOOR') {
           $('#Master').show(); 
@@ -215,10 +235,15 @@ Provide functionality to all of the pages
             $('#ATR_PW').hide(); 
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
-            $('#VRP').show();
+            $('#VRP').hide();
+            $('#ARP').hide();
             $('#ATR_SENS').show();
             $('#VENT_SENS').hide();
+            $('#REACTION_TIME').show();
+            $('#RESPONSE_FACTOR').show();
+            $('#RECOVERY_TIME').show();
             $('#ACTIVITY_THRESHOLD').show();
+            
         }
         else if($('#pacingModes').val() == 'VOOR') {
           $('#Master').show(); 
@@ -228,9 +253,13 @@ Provide functionality to all of the pages
             $('#ATR_PW').hide(); 
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
-            $('#VRP').show();
+            $('#VRP').hide();
+            $('#ARP').hide();
             $('#ATR_SENS').hide();
             $('#VENT_SENS').hide();
+            $('#REACTION_TIME').show();
+            $('#RESPONSE_FACTOR').show();
+            $('#RECOVERY_TIME').show();
             $('#ACTIVITY_THRESHOLD').show();
         }
         else if($('#pacingModes').val() == 'AAIR') {
@@ -241,9 +270,13 @@ Provide functionality to all of the pages
             $('#ATR_PW').hide(); 
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
-            $('#VRP').show();
+            $('#VRP').hide();
+            $('#ARP').show();
             $('#ATR_SENS').show();
             $('#VENT_SENS').hide();
+            $('#REACTION_TIME').show();
+            $('#RESPONSE_FACTOR').show();
+            $('#RECOVERY_TIME').show();
             $('#ACTIVITY_THRESHOLD').show();
         }
         else if($('#pacingModes').val() == 'VVIR') {
@@ -255,8 +288,12 @@ Provide functionality to all of the pages
             $('#VENT_AMP').show();
             $('#VENT_PW').show();
             $('#VRP').show();
+            $('#ARP').hide();
             $('#ATR_SENS').hide();
             $('#VENT_SENS').show();
+            $('#REACTION_TIME').show();
+            $('#RESPONSE_FACTOR').show();
+            $('#RECOVERY_TIME').show();
             $('#ACTIVITY_THRESHOLD').show();
         }
         else{

@@ -26,12 +26,16 @@ def home():
         ARP = request.form.get('ARP')
         ACTlow = request.form.get('ACTlow')
         ACThigh = request.form.get('ACThigh')
-
+        REACTION_TIME = request.form.get('REACTION_TIME')
+        RECOVERY_TIME = request.form.get('RECOVERY_TIME')
+        RESPONSE_FACTOR = request.form.get('RESPONSE_FACTOR')
+        VENT_SENS = request.form.get('VENT_SENS')
+        ATR_SENS = request.form.get('ATR_SENS')
         if (LRL > URL):
             flash("LRL may not exceed URL", category = 'error')
             return render_template("home.html", user = current_user, home = 'TRUE')
         if (ACTlow > ACThigh):
-            flash("Low threshold may not exceed high threshold")
+            flash("Low threshold may not exceed high threshold", category = 'error')
             return render_template("home.html", user = current_user, home = 'TRUE')
         
         setMode(pacingMode) #Adds the mode to the database
@@ -43,6 +47,13 @@ def home():
         setVENT_PW(VENT_PW, pacingMode)
         setVRP(VRP, pacingMode)
         setARP(ARP, pacingMode)
+        setACTlow(ACTlow, pacingMode)
+        setACThigh(ACThigh, pacingMode)
+        setREACTION_TIME(REACTION_TIME, pacingMode)
+        setRECOVERY_TIME(RECOVERY_TIME, pacingMode)
+        setRESPONSE_FACTOR(RESPONSE_FACTOR, pacingMode)
+        setVENT_SENS(VENT_SENS, pacingMode)
+        setATR_SENS(ATR_SENS, pacingMode)
 
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
     
