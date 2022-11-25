@@ -21,7 +21,7 @@ Contains all programmable parameters for the pacemaker that are inputted through
 class Pacing(database.Model):
     user_id = database.Column(database.Integer, database.ForeignKey('user.id')) #User id is an integer entry
     id = database.Column(database.Integer, primary_key = True) #id of the pacing mode entry is the primary key
-    mode = database.Column(database.String(4), unique = True) #Every mode must have a unique entry in the database as it will be edited
+    mode = database.Column(database.String(4)) #Every mode must have a unique entry in the database as it will be edited
     LRL = database.Column(database.Integer) #LOWER RATE LIMIT
     URL = database.Column(database.Integer) #UPPER  RATE LIMIT
     ATR_AMP = database.Column(database.Integer) #ATRIAL AMPLITUDE 
@@ -37,6 +37,7 @@ class Pacing(database.Model):
     RECOVERY_TIME = database.Column(database.Integer)
     ACT_LOW = database.Column(database.Integer) 
     ACT_HIGH = database.Column(database.Integer)
+    MSR = database.Column(database.Integer) 
 """
 User Class:
 Contains a unique id for every user entry 
@@ -74,7 +75,7 @@ def setLRL(LRL_input, mode_input):
     mode = getMode(mode_input)
     if (LRL_input == "" or LRL_input == None):
         return
-    mode.input = LRL_input
+    mode.LRL = LRL_input
     database.session.commit() 
 
 def setURL(URL_input, mode_input):
@@ -82,6 +83,13 @@ def setURL(URL_input, mode_input):
     if (URL_input == "" or URL_input == None):
         return
     mode.URL = URL_input
+    database.session.commit() 
+
+def setMSR(MSR_input, mode_input):
+    mode = getMode(mode_input)
+    if (MSR_input == "" or MSR_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+        return
+    mode.MSR = MSR_input
     database.session.commit() 
 
 def setATR_AMP(ATR_AMP_input, mode_input):
