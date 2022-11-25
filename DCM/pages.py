@@ -22,6 +22,13 @@ pages = Blueprint('pages', __name__) #Gives the blueprint for the page object
 @pages.route('/', methods = ['GET', 'POST']) #Gives the route both POST and GET methods to send and receive data
 @login_required #Ensures that user is logged in before they can access the page
 def home(): 
+    portName = "test"
+    for port in comports(): 
+        if port.serial_number == "000000123456":
+            portName = port.device
+            print(portName)
+            
+    print(portName)
     def __init__(self):
         self.ser = serial.Serial()
         self.conn = False
