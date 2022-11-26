@@ -64,7 +64,7 @@ section.range-slider input:last-of-type::-moz-range-track {
   border: 0;
 }
 </style>
-
+<script src="plotly.min.js"></script>
 
 <!-- Div to put the homepage into one class-->
 <div class = "Homepage"> 
@@ -134,17 +134,20 @@ section.range-slider input:last-of-type::-moz-range-track {
 <div id = "ACTIVITY_THRESHOLD">
 <label for = "ACTIVITY_THRESHOLD"> 
 Activity Threshold
-</label> 
-<section class="range-slider">
-    <span class="rangeValues"></span>
-    <input name = "ACTlow" input value="0" min="0" max="40" step="0.5"  type="range">
-    <input name = "ACThigh" input value= "40" min="0" max="40" step="0.5" type="range">
-  </section>
+</label>
+<div>
+<input type="radio" name="options" id="option1" value="V-High"> V-High </input><br>
+<input type="radio" name="options" id="option2" value="High"> High</input><br>
+<input type="radio" name="options" id="option3" value="Med-High"> Med-High</input><br>
+<input type="radio" name="options" id="option4" value="Med" checked="checked"> Med </input><br>
+<input type="radio" name="options" id="option5" value="Med-Low"> Med-Low</input><br>
+<input type="radio" name="options" id="option6" value="Low"> Low </input><br>
+<input type="radio" name="options" id="option6" value="V-Low"> V-Low </input><br>
+</div>
 </div>
 </ul> </div>
 <button type = "submit" class = "btn btn-primary align-center ">Submit</button>
 </form>
-</div>
 
 
 {% endblock %}

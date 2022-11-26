@@ -53,7 +53,7 @@ def home():
         if port.serial_number == "000000123456":
             port_Name = port.device
             portSerial = port.serial_number
-            port_object = __init__(port) 
+
     if request.method == 'POST': #If the user is posting data
         pacingMode = request.form.get('pacingModes') #Get the pacing mode from the form
         URL = request.form.get('URL', type = int)
@@ -65,13 +65,13 @@ def home():
         VENT_PW = request.form.get('VENT_PW', type = int)
         VRP = request.form.get('VRP', type = int)
         ARP = request.form.get('ARP', type = int)
-        ACTlow = request.form.get('ACTlow', type = int)
-        ACThigh = request.form.get('ACThigh', type = int)
+        VENT_SENS = request.form.get('VENT_SENS', type = int)
+        ATR_SENS = request.form.get('ATR_SENS', type = int)
         REACTION_TIME = request.form.get('REACTION_TIME', type = float)
         RECOVERY_TIME = request.form.get('RECOVERY_TIME', type = float)
         RESPONSE_FACTOR = request.form.get('RESPONSE_FACTOR', type = float)
-        VENT_SENS = request.form.get('VENT_SENS', type = int)
-        ATR_SENS = request.form.get('ATR_SENS', type = int)
+        ACTIVITY_THRESHOLD = request.form['options']
+        
         """
         Setting nominal inputs if user has not entered a value otherwise, checks for conflicts afterwards 
         """
@@ -84,7 +84,7 @@ def home():
         if (ATR_PW == "" or ATR_PW == None):
             ATR_PW = 1
         if (VENT_AMP == "" or VENT_AMP == None):
-            VENT_AMP = 5.0
+            VENT_AMP = 5
         if (VENT_PW == "" or VENT_PW == None):
             VENT_PW = 1
         if (ATR_PW == "" or ATR_PW == None):
@@ -94,7 +94,7 @@ def home():
         if (VRP == "" or VRP == None):
             VRP = 320
         if (MSR == "" or MSR == None):
-            MSR = 120
+            MSR = 60
         if (VENT_SENS == "" or VENT_SENS == None):
             VENT_SENS = 5
         if (ATR_SENS == "" or ATR_SENS == None):
@@ -105,10 +105,7 @@ def home():
             RECOVERY_TIME = 5
         if (RESPONSE_FACTOR == "" or RESPONSE_FACTOR == None):
             RESPONSE_FACTOR = 8
-        if (ACTlow == "" or ACTlow == None):
-            ACTlow = 0
-        if (ACThigh == "" or ACThigh == None):
-            ACThigh = 40
+
         if (int(LRL) > int(URL)):
             flash("LRL may not exceed URL", category = 'error')
             return render_template("home.html", user = current_user, home = 'TRUE')
@@ -142,6 +139,40 @@ def home():
             case "VVIR":
                 pacing = 4
                 RA= 1
+        ACT_THRES = 1.2
+        match ACTIVITY_THRESHOLD:
+            case "V-High":
+                ACT_THRES = 2.5
+            case "High":
+                ACT_THRES = 2.1
+            case "Med-High":
+                ACT_THRES = 1.6
+            case "Med":
+                ACT_THRES = 1.2
+            case "Med-Low":
+                ACT_THRES = 0.8
+            case "Low":
+                ACT_THRES = 0.5
+            case "V-Low":
+                ACT_THRES = 0.2
+        mode = struct.pack('B', pacing)
+        RA_on = struct.pack('B', RA)
+        URL_b = struct.pack('B', URL) 
+        LRL_b = struct.pack('B', LRL)
+        MSR_b = struct.pack('B', MSR)
+        ATR_PW_b = struct.pack('B', ATR_PW)
+        VENT_PW_b = struct.pack('B', VENT_PW)
+        VENT_SENS_b = struct.pack('B', VENT_SENS)
+        ATR_SENS_b = struct.pack('B', ATR_SENS)
+        RESPONSE_FACTOR_b = struct.pack('B',RESPONSE_FACTOR)
+        VENT_AMP_b = struct.pack('f', VENT_AMP)
+        REACTION_TIME_b = struct.pack('f', REACTION_TIME)
+        RECOVERY_TIME_b = struct.pack('f', RECOVERY_TIME)
+        ATR_AMP_b = struct.pack('f', ATR_AMP)
+        ACT_THRES_b = struct.pack('f', ACT_THRES)
+        ARP_b = struct.pack('H', ARP)
+        VRP_b = struct.pack('H', VRP)
+        
         setMode(pacingMode) #Adds the mode to the database
         setURL(URL, pacingMode)
         setLRL(LRL, pacingMode)
@@ -152,67 +183,48 @@ def home():
         setVENT_PW(VENT_PW, pacingMode)
         setVRP(VRP, pacingMode)
         setARP(ARP, pacingMode)
-        setACTlow(ACTlow, pacingMode)
-        setACThigh(ACThigh, pacingMode)
         setREACTION_TIME(REACTION_TIME, pacingMode)
         setRECOVERY_TIME(RECOVERY_TIME, pacingMode)
         setRESPONSE_FACTOR(RESPONSE_FACTOR, pacingMode)
         setVENT_SENS(VENT_SENS, pacingMode)
         setATR_SENS(ATR_SENS, pacingMode)
+        setACTIVITY_THRESHOLD(ACTIVITY_THRESHOLD, pacingMode)
         
-        mode = struct.pack('B', pacing)
-        RA_on = struct.pack('B', RA)
-        URL_b = struct.pack('B', URL) 
-        LRL_b = struct.pack('B', LRL)
-        MSR_b = struct.pack('B', MSR)
-        ATR_PW_b = struct.pack('B', ATR_PW)
-        ACTlow_b = struct.pack('B', ACTlow)
-        ACThigh_b = struct.pack('B', ACThigh)
-        VENT_PW_b = struct.pack('B', VENT_PW)
-        VENT_SENS_b = struct.pack('B', VENT_SENS)
-        ATR_SENS_b = struct.pack('B', ATR_SENS)
-        RESPONSE_FACTOR_b = struct.pack('B',RESPONSE_FACTOR)
-        VENT_AMP_b = struct.pack("f", VENT_AMP)
-        REACTION_TIME_b = struct.pack('f', REACTION_TIME)
-        RECOVERY_TIME_b = struct.pack('f', RECOVERY_TIME)
-        ATR_AMP_b = struct.pack('f', ATR_AMP)
-        ARP_b = struct.pack('H', ARP)
-        VRP_b = struct.pack('H', VRP)
-        print(VENT_AMP_b)
-        print(VENT_AMP)
-        data = b'\x16' + b'\x22' + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + ACTlow_b + ACThigh_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b + ARP_b + VRP_b + ATR_AMP_b 
+        data = b'\x16'+ b'\x55' + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
+        data_echo = b'\x16' + b'\x22' + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
         """if(port_object != None):
             serWrite(port_object)
-
         print(port_object)"""
-        if (port_Name != "" and port_object != None):
-            with serial.Serial(port = port_Name, baudrate = 115200) as ser: 
+        if (port_Name != ""):
+            with serial.Serial(port = port_Name, baudrate = 115200) as ser:
                 ser.write(data)
-                sleep(0.1)
-                data_received = ser.read(32)
-                mode = struct.unpack_from('B', data_received[0])
-                RA_on = data_received[1]
-                LRL_b = struct.unpack_from('B',data_received[2])
-                URL_b = data_received[3]
-                MSR_b = data_received[4]    
-                ATR_PW_b = data_received[5]
-                ACTlow_b = data_received[6]
-                ACThigh_b = data_received[7]
-                VENT_PW_b = data_received[8]
-                VENT_SENS_b = data_received[9]
-                ATR_SENS_b = data_received[10]
-                RESPONSE_FACTOR_b = data_received[11]
-                VENT_AMP_b = struct.unpack("f", data_received[12:16])[0]
-                print(data_received)
-                
-
-        print("mode", mode[0])   
-        print("RA_ON", int.from_bytes(RA_on,byteorder = 'big'))
-        print("LRL", LRL_b[0])
-        print("VENT AMP",VENT_AMP_b)
+            with serial.Serial(port = port_Name, baudrate = 115200) as ser:
+                ser.write(data_echo)
+                data_received = ser.read(34)
+                mode = struct.unpack('B', data_received[0])[0]
+                RA_on = struct.unpack('B', data_received[1])[0]
+                LRL_b = struct.unpack('B',data_received[2])[0]
+                URL_b = struct.unpack('B', data_received[3])[0]
+                MSR_b = struct.unpack('B', data_received[4])[0]    
+                ATR_PW_b = struct.unpack('B', data_received[5])[0]
+                VENT_PW_b = struct.unpack('B', data_received[6])[0]
+                VENT_SENS_b = struct.unpack('B', data_received[7])[0]
+                ATR_SENS_b = struct.unpack('B', data_received[8])[0]
+                RESPONSE_FACTOR_b = struct.unpack('B', data_received[9])[0]
+                VENT_AMP_b = struct.unpack('f', data_received[10:14])[0]
+                REACTION_TIME_b = struct.unpack('f', data_received[14:18])[0] 
+                RECOVERY_TIME_b = struct.unpack('f', data_received[18:22])[0]
+                ATR_AMP_b = struct.unpack('f', data_received[22:26])[0]
+                ACT_THRES_b = struct.unpack('f', data_received[26:30])[0]
+                ARP_b = struct.unpack('H', data_received[30:32])[0]
+                VRP_b = struct.unpack('H', data_received[32:34])[0]
+                ser.close()
+            
+        print(ser.is_open)      
         
-    
+
         
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
-    
+    if request.method == 'GET':
+        print("test")
     return render_template("home.html", user = current_user, home = 'TRUE', portName = portSerial, portStat = port_Name)

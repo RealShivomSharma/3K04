@@ -35,8 +35,7 @@ class Pacing(database.Model):
     REACTION_TIME = database.Column(database.Integer)
     RESPONSE_FACTOR = database.Column(database.Integer)
     RECOVERY_TIME = database.Column(database.Integer)
-    ACT_LOW = database.Column(database.Integer) 
-    ACT_HIGH = database.Column(database.Integer)
+    ACTIVITY_THRESHOLD = database.Column(database.Integer)
     MSR = database.Column(database.Integer) 
 """
 User Class:
@@ -153,12 +152,12 @@ def setVENT_SENS(VENT_SENS_input, mode_input):
     mode.ATR_SENS = VENT_SENS_input
     database.session.commit() 
 
-def setACTlow(ACTlow_input, mode_input):
+def setACTIVITY_THRESHOLD(ACTIVITY_THRESHOLD_input, mode_input):
     mode = getMode(mode_input) 
-    if (ACTlow_input == "" or ACTlow_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
+    if (ACTIVITY_THRESHOLD_input == "" or ACTIVITY_THRESHOLD_input == None or mode_input == "AOO" or mode_input == "VOO" or mode_input =="AAI" or mode_input =="VVI"):
         return
     mode = getMode(mode_input)
-    mode.ACTlow = ACTlow_input
+    mode.ACTIVITY_THRESHOLD = ACTIVITY_THRESHOLD_input
     database.session.commit() 
 
 def setACThigh(ACThigh_input, mode_input):
