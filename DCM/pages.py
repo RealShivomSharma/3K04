@@ -87,7 +87,7 @@ def home():
             VENT_AMP = 5
         if (VENT_PW == "" or VENT_PW == None):
             VENT_PW = 1
-        if (ATR_PW == "" or ATR_PW == None):
+        if (ATR_PW == "" or ATR_PW == None):    
             ATR_PW = 1
         if (ARP == "" or ARP == None):
             ARP = 250
@@ -200,29 +200,8 @@ def home():
                 ser.write(data)
             with serial.Serial(port = port_Name, baudrate = 115200) as ser:
                 ser.write(data_echo)
-                data_received = ser.read(34)
-                mode = struct.unpack('B', data_received[0])[0]
-                RA_on = struct.unpack('B', data_received[1])[0]
-                LRL_b = struct.unpack('B',data_received[2])[0]
-                URL_b = struct.unpack('B', data_received[3])[0]
-                MSR_b = struct.unpack('B', data_received[4])[0]    
-                ATR_PW_b = struct.unpack('B', data_received[5])[0]
-                VENT_PW_b = struct.unpack('B', data_received[6])[0]
-                VENT_SENS_b = struct.unpack('B', data_received[7])[0]
-                ATR_SENS_b = struct.unpack('B', data_received[8])[0]
-                RESPONSE_FACTOR_b = struct.unpack('B', data_received[9])[0]
-                VENT_AMP_b = struct.unpack('f', data_received[10:14])[0]
-                REACTION_TIME_b = struct.unpack('f', data_received[14:18])[0] 
-                RECOVERY_TIME_b = struct.unpack('f', data_received[18:22])[0]
-                ATR_AMP_b = struct.unpack('f', data_received[22:26])[0]
-                ACT_THRES_b = struct.unpack('f', data_received[26:30])[0]
-                ARP_b = struct.unpack('H', data_received[30:32])[0]
-                VRP_b = struct.unpack('H', data_received[32:34])[0]
+                
                 ser.close()
-            
-        print(ser.is_open)      
-        
-
         
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
     if request.method == 'GET':
