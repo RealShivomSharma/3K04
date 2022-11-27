@@ -147,65 +147,98 @@ Activity Threshold
 <input type="radio" name="options" id="option6" value="Low"> Low </input><br>
 <input type="radio" name="options" id="option6" value="V-Low"> V-Low </input><br>
 </div>
-<div id = "Graph" class="container-fluid">
+
+
+</ul> </div>
+<div class="container" align = "center">
+  <button type="button" class="btn btn-primary align-center " data-toggle="collapse" data-target="#demo" style = "margin-left: 0">Current parameters</button>
+  <div id="demo" class="collapse" align = "center">
+    <ul class = "forms">
+    <li>Mode: {{paramList[0]}}</li>
+    <li>URL: {{paramList[1]}}</li>
+    <li>LRL: {{paramList[2]}}</li>
+    <li>Atrial Amplitude: {{paramList[3]}}</li>
+    <li>Ventricular Amplitude: {{paramList[4]}}</li>
+    <li>Ventricular Pulse Width: {{paramList[5]}}</li>
+    <li>Atrial Pulse Width: {{paramList[6]}}</li>
+    <li>ARP: {{paramList[7]}}</li>
+    <li>VRP: {{paramList[8]}}</li>
+    <li>MSR: {{paramList[9]}}</li>
+    <li>Ventricular Sensitivity: {{paramList[10]}}</li>
+    <li>Atrial Sensitivity: {{paramList[11]}}</li>
+    <li>Reaction Time: {{paramList[12]}}</li>
+    <li>Recovery Time: {{paramList[13]}}</li>
+    <li>Response Factor: {{paramList[14]}}</li>
+    <li>Activity Threshold: {{paramList[15]}}</li>
+  </ul>
+  </div>
+</div>
+
+<button type = "submit" class = "btn btn-primary align-center ">Submit</button>
+</form>
+<div class="container-fluid">
   <!-- Example row of columns -->
   <div class="row">
-      <div class="container-fluid" id="data-temperature">
+      <div class="container-fluid" id="data-container">
+
       </div>
   </div>
 </div>
-</div>
-<table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Parameters</th>
-      <th scope="col">Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[0] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">LRL</th>
-      <td>{{ paramList[1] }}</td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td>{{ paramList[2] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[3] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[4] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[5] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[6] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[7] }}</td>
-    </tr>
-    <tr>
-      <th scope="row">URL</th>
-      <td>{{ paramList[8] }}</td>
-    </tr>
+<script>
+  var chart;
 
-  </tbody>
-</table>
-</ul> </div>
-<button type = "submit" class = "btn btn-primary align-center ">Submit</button>
-</form>
+  function requestData()
+  {
+      // Ajax call to get the Data from Flask
+      var requests = $.get('/data');
+      var tm = requests.done(function (result)
+      {
+          var series = chart.series[0],
+              shift = series.data.length > 20;
 
+          // add the point
+          chart.series[0].addPoint(result, true, shift);
+
+          // call it again after one second
+          setTimeout(requestData, 2000);
+      });
+  }
+
+  $(document).ready(function() {
+      chart = new Highcharts.Chart({
+          chart: {
+              renderTo: 'data-container',
+              defaultSeriesType: 'spline',
+              events: {
+                  load: requestData
+              }
+          },
+          title: {
+              text: 'Pacemaker Data'
+          },
+          xAxis: {
+              type: 'datetime',
+              tickPixelInterval: 150,
+              maxZoom: 20 * 1000
+          },
+          yAxis: {
+              minPadding: 0.2,
+              maxPadding: 0.2,
+              title: {
+                  text: 'Value',
+                  margin: 80
+              }
+          },
+          series: [{
+              name: 'Ventricle',
+              data: [],
+              
+              
+          }]
+      });
+
+  });
+</script>
 
 {% endblock %}
         
