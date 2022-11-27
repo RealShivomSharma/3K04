@@ -1,0 +1,13 @@
+
+Creating a new model from the contents of Atomic Subsystem "Requirements Table".
+
+New Model File:C:\Users\coler\Documents\School\MECHTRON 3K04\3K04\simulink_3\sldv_output\RequirementsTable\RequirementsTable.slx
+
+27-Nov-2022 01:34:00
+Checking compatibility for requirements table analysis: model 'RequirementsTable'
+Compiling model...done
+Building model representation...done
+
+27-Nov-2022 01:34:23
+'RequirementTable_testing/Modes/Requirements Table' is compatible for requirements table analysis with Simulink Design Verifier.
+

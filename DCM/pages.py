@@ -18,6 +18,14 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from .databases import * #Imports all functions from databases.py
 from . import database #Imports database file
 pages = Blueprint('pages', __name__) #Gives the blueprint for the page object
+
+@pages.route('/data', methods=["GET", "POST"])
+def data():
+    data = [time() * 1000, random() * 100]
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
+
 @pages.route('/', methods = ['GET', 'POST']) #Gives the route both POST and GET methods to send and receive data
 @login_required #Ensures that user is logged in before they can access the page
 def home():
@@ -57,7 +65,7 @@ def home():
             port_Name = port.device
             portSerial = port.serial_number
 
-    paramList = [120, 60, 5, 5, 5, 1, 250, 320, 60, 5, 2, 30, 5, 8]
+    paramList = ["AOO", 120, 60, 5, 5, 5, 1, 250, 320, 60, 5, 2, 30, 5, 8]
     if request.method == 'POST': #If the user is posting data
         pacingMode = request.form.get('pacingModes') #Get the pacing mode from the form
         URL = request.form.get('URL', type = int)
@@ -107,14 +115,14 @@ def home():
             RECOVERY_TIME = 5
         if (RESPONSE_FACTOR == "" or RESPONSE_FACTOR == None):
             RESPONSE_FACTOR = 8
-
+        paramList = [pacingMode, URL, LRL, ATR_AMP, VENT_AMP, VENT_PW, ATR_PW, ARP, VRP, MSR, VENT_SENS, ATR_SENS, ATR_SENS, REACTION_TIME, RECOVERY_TIME, RESPONSE_FACTOR, ACTIVITY_THRESHOLD]
         if (int(LRL) > int(URL)):
             flash("LRL may not exceed URL", category = 'error')
-            return render_template("home.html", user = current_user, home = 'TRUE')
+            return render_template("home.html", user = current_user, home = 'TRUE', paramList = paramList)
         if (int(MSR) > int(URL)):
             flash("MSR may not exceed URL", category = 'error')
-            return render_template("home.html", user = current_user, home = 'TRUE')
-        paramList = [URL, LRL, ATR_AMP, VENT_AMP, VENT_PW, ATR_PW, ARP, VRP, MSR, VENT_SENS, ATR_SENS, ATR_SENS, REACTION_TIME, RECOVERY_TIME, RESPONSE_FACTOR]
+            return render_template("home.html", user = current_user, home = 'TRUE', paramList = paramList)
+        
         pacing = 1
         RA = 0
         match pacingMode:
@@ -207,9 +215,5 @@ def home():
                 ser.close()
         
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
-    
-    if request.method == 'GET':
-        print("test")
-        
         
     return render_template("home.html", user = current_user, home = 'TRUE', portName = portSerial, portStat = port_Name, paramList = paramList)
