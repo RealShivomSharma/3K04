@@ -21,10 +21,18 @@ pages = Blueprint('pages', __name__) #Gives the blueprint for the page object
 
 @pages.route('/data', methods=["GET", "POST"])
 def data():
-    data = [time() * 1000, random() * 100]
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-    return response
+    port_Name = ""
+    portSerial = ""
+    port_object = None
+    for port in comports(): 
+        if port.serial_number == "000000123456":
+            port_Name = port.device
+            portSerial = port.serial_number
+    if (port_Name!= ""):
+        data = [time() * 1000, random() * 5]
+        response = make_response(json.dumps(data))
+        response.content_type = 'application/json'
+        return response
 
 @pages.route('/', methods = ['GET', 'POST']) #Gives the route both POST and GET methods to send and receive data
 @login_required #Ensures that user is logged in before they can access the page
@@ -211,8 +219,6 @@ def home():
                 ser.write(data)
             with serial.Serial(port = port_Name, baudrate = 115200) as ser:
                 ser.write(data_echo)
-                
-                ser.close()
         
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
         
