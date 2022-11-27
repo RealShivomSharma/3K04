@@ -192,7 +192,8 @@ Activity Threshold
       // Ajax call to get the Data from Flask
       var requests = $.get('/data');
       var tm = requests.done(function (result)
-      {
+      {   
+      
           var series = chart.series[0],
               shift = series.data.length > 20;
 
@@ -233,8 +234,13 @@ Activity Threshold
               name: 'Ventricle',
               data: [],
               
-              
-          }]
+          }, {
+            name: 'Atrium',
+            data: [],
+
+          }],
+
+          
       });
 
   });
