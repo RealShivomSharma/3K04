@@ -63,6 +63,9 @@ section.range-slider input:last-of-type::-moz-range-track {
   section.range-slider input[type=range]::-moz-focus-outer {
   border: 0;
 }
+.table {
+width: auto;
+}
 </style>
 <script src="plotly.min.js"></script>
 
@@ -144,7 +147,61 @@ Activity Threshold
 <input type="radio" name="options" id="option6" value="Low"> Low </input><br>
 <input type="radio" name="options" id="option6" value="V-Low"> V-Low </input><br>
 </div>
+<div id = "Graph" class="container-fluid">
+  <!-- Example row of columns -->
+  <div class="row">
+      <div class="container-fluid" id="data-temperature">
+      </div>
+  </div>
 </div>
+</div>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Parameters</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[0] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">LRL</th>
+      <td>{{ paramList[1] }}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{{ paramList[2] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[3] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[4] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[5] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[6] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[7] }}</td>
+    </tr>
+    <tr>
+      <th scope="row">URL</th>
+      <td>{{ paramList[8] }}</td>
+    </tr>
+
+  </tbody>
+</table>
 </ul> </div>
 <button type = "submit" class = "btn btn-primary align-center ">Submit</button>
 </form>
