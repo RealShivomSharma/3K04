@@ -221,11 +221,43 @@ def home():
             with serial.Serial(port = port_Name, baudrate = 115200, parity= serial.PARITY_NONE , stopbits = serial.STOPBITS_ONE, timeout = 5) as ser:
                 ser.write(data_echo)
                 data_received = ser.read(36)
-                print(data_received[0])
-                print(data_received[1])
-                print(data_received[2])
-                
+                mode = data_received[0]
+                RA_ON = data_received[1]
+                LRL_b = data_received[2]
+                URL_b = data_received[3]
+                MSR_b = data_received[4]
+                ATR_PW_b = data_received[5]
+                VENT_PW_b = data_received[6]
+                VENT_SENS_b = data_received[7]
+                ATR_SENS_b = data_received[8]
+                RESPONSE_FACTOR_b = data_received[9]
+                VENT_AMP_b = struct.unpack('f', data_received[10:14])[0]
+                REACTION_TIME_b = struct.unpack('f', data_received[14:18])[0]
+                RECOVERY_TIME_b = struct.unpack('f', data_received[18:22])[0]
+                ATR_AMP_b = struct.unpack('f', data_received[22:26])[0]
+                ACT_THRES_b = struct.unpack('f', data_received[26:30])[0]
+                ARP_b = struct.unpack('H', data_received[30:32])[0]
+                VRP_b = struct.unpack('H', data_received[32:34])[0]
 
+                print("mode: ", mode)
+                print("RA_ON: ", RA_ON)
+                print("LRL:", LRL_b)
+                print("URL:", URL_b)
+                print("MSR:", MSR_b)
+                print("ATR_PW: ", ATR_PW_b)
+                print("VENT_PW: ", VENT_PW_b)
+                print("VENT_SENS: ", VENT_SENS_b)
+                print("ATR_SENS: ", ATR_SENS_b)
+                print("Response Factor:", RESPONSE_FACTOR_b)
+                print("Vent_Amp: ", VENT_AMP_b)
+                print("Reaction Time: ", REACTION_TIME_b)
+                print("Recovery Tinme: ", RECOVERY_TIME_b)
+                print("ATR_AMP: ", ATR_AMP_b)
+                print("ACT_THRES: ", ACT_THRES_b)
+                print("ARP:", ARP_b)
+                print("VRP:", VRP_b)
+
+                ser.close()
                     
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
         
