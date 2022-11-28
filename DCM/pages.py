@@ -27,7 +27,7 @@ def data():
     for port in comports(): 
         if port.serial_number == "000000123456":
             port_Name = port.device
-            portSerial = port.serial_number
+            portSerial = port.serial_number 
     if (port_Name!= ""):
         data = [time() * 1000, random() * 5]
         response = make_response(json.dumps(data))
@@ -208,18 +208,25 @@ def home():
         setVENT_SENS(VENT_SENS, pacingMode)
         setATR_SENS(ATR_SENS, pacingMode)
         setACTIVITY_THRESHOLD(ACTIVITY_THRESHOLD, pacingMode)
-        
-        data = b'\x16'+ b'\x55' + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
-        data_echo = b'\x16' + b'\x22' + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
-        """if(port_object != None):
-            serWrite(port_object)
-        print(port_object)"""
+        Start = b'\x16'
+        SYNC = b'\x22'
+        Fn_set = b'\x55'
+        data = Start + Fn_set + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
+        data_echo = Start + SYNC + mode + RA_on + LRL_b + URL_b + MSR_b + ATR_PW_b + VENT_PW_b + VENT_SENS_b + ATR_SENS_b + RESPONSE_FACTOR_b + VENT_AMP_b + REACTION_TIME_b + RECOVERY_TIME_b  + ATR_AMP_b + ACT_THRES_b + ARP_b + VRP_b 
         if (port_Name != ""):
-            with serial.Serial(port = port_Name, baudrate = 115200) as ser:
+            with serial.Serial(port = port_Name, baudrate = 115200, parity= serial.PARITY_NONE , stopbits = serial.STOPBITS_ONE) as ser:
                 ser.write(data)
-            with serial.Serial(port = port_Name, baudrate = 115200) as ser:
+                ser.close()
+                print(len(data))
+            with serial.Serial(port = port_Name, baudrate = 115200, parity= serial.PARITY_NONE , stopbits = serial.STOPBITS_ONE, timeout = 5) as ser:
                 ser.write(data_echo)
-        
+                data_received = ser.read(36)
+                print(data_received[0])
+                print(data_received[1])
+                print(data_received[2])
+                
+
+                    
         flash("Parameters updated succesfully") #Shows user that the parameters they have inputted successfully updated
         
     return render_template("home.html", user = current_user, home = 'TRUE', portName = portSerial, portStat = port_Name, paramList = paramList)
