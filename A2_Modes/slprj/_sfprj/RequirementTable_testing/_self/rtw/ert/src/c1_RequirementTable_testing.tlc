@@ -1,0 +1,97 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   11 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "is_c1_RequirementTable_testing"\
+      Description  "StateActiveChild"\
+      SFName       "is_c1_RequirementTable_testing"\
+      Path         "is_c1_RequirementTable_testing"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "TRUE"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "TRUE"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "FALSE"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "FALSE"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "TARGET_RATE"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "TARGET_RATE"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "DELAY"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "DELAY"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "n"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "n"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "TH"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "TH"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "AVG_ACT"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "AVG_ACT"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "sfEvent"\
+      Description  "ActiveChartEvent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_active_c1_RequirementTable_testing"\
+      Description  "StateIsActive"\
+      SFName       "is_active_c1_RequirementTable_testing"\
+      Path         "is_active_c1_RequirementTable_testing"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "temporalCounter_i1"\
+      Description  "TemporalCounter"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction
